@@ -14,6 +14,7 @@ public class DragBee : MonoBehaviour
     [SerializeField] public GameObject canvas;
     [SerializeField] private Sprite repairBee;
     [SerializeField] private Sprite nailBee;
+    [SerializeField] private GameObject nailPrefab;
 
     private bool followMouse;
     private bool clickable;
@@ -75,7 +76,9 @@ public class DragBee : MonoBehaviour
         {
             if(beeType == BeeTypes.nail)
             {
-                furnitureManager.furnitureTrigger.nailed = true;
+                GameObject nail = Instantiate(nailPrefab);
+                nailPrefab.transform.position = new Vector3(furnitureManager.furnitureTrigger.transform.position.x, furnitureManager.furnitureTrigger.transform.position.y, -1);
+
             } 
 
             if(beeType == BeeTypes.repair)
@@ -83,7 +86,7 @@ public class DragBee : MonoBehaviour
                 furnitureManager.furnitureTrigger.repaired = true; 
             }
 
-            Destroy(gameObject);
+            animator.SetTrigger("boom");
         }
         else
         {
