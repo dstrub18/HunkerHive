@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ForceApplier : MonoBehaviour
 {
-    [Range (2, 10)]
+    [Range (0, 10)]
     [SerializeField] private float forceInterval;
 
     [Space (10)]
 
-    [Range(100, 200)]
+    [Range(100, 10000)]
     [SerializeField] private float forceStrength;
 
     [SerializeField] private Rigidbody2D rb;
@@ -34,17 +34,20 @@ public class ForceApplier : MonoBehaviour
         {
             rb.AddForce(-transform.right * forceStrength, fm);
             Debug.Log("Force applied to the \t \t left");
+            rb.velocity = Vector3.zero;
             applyLeft = false;
             yield return new WaitForSeconds(forceInterval);
+            StartCoroutine(applyForce());
         }
 
         if (!applyLeft)
         {
             rb.AddForce(transform.right * forceStrength, fm);
             Debug.Log("Force applied to the \t \t right");
+            rb.velocity = Vector3.zero;
             applyLeft = true;
             yield return new WaitForSeconds(forceInterval);
-
+            StartCoroutine(applyForce());
         }
 
         }
