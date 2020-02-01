@@ -8,13 +8,16 @@ using UnityEngine;
 public class Furniture : MonoBehaviour
 {
     [Space (10)]
-
+    [SerializeField] private FurnitureManager furnitureManager;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Collider2D cl;
     [SerializeField] private SpriteRenderer sr;
 
+
     [Space(10)]
-    [SerializeField] private float hp;
+    [SerializeField] public float hp;
+    [SerializeField] public float maxHp;
+
 
     [SerializeField] private float velocity;
 
@@ -25,8 +28,6 @@ public class Furniture : MonoBehaviour
         Debug.Log("rb assigned");
         cl = GetComponent<Collider2D>();
         sr = GetComponent<SpriteRenderer>();
-
-
 
     }
 
