@@ -87,10 +87,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82451623704f740fd92d9a730e423cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beeType: 0
+  beeType: 1
   furnitureManager: {fileID: 0}
   beeSelector: {fileID: 0}
   canvas: {fileID: 0}
+  repairBee: {fileID: 21300000, guid: d1e3ee3f71528415a8b88cfddc71db83, type: 3}
+  nailBee: {fileID: 21300000, guid: 69a5e5d67c85247e0b40804663ec6938, type: 3}
 --- !u!114 &3825684140833670901
 MonoBehaviour:
   m_ObjectHideFlags: 0
