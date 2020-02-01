@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -53,9 +55,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Quaternion rope_originalRotation;
 
 
+    [Space]
+    [Header("Music Variables")]
 
-    private 
-    
+    public AudioSource repairLoopSource;
+    public AudioSource stormMusic;
+
+    public AudioMixerSnapshot inRepairPhase;
+    public AudioMixerSnapshot inStormPhase;
+
+    [Range (0.5f, 4.0f)]
+    public float transitionTime;
+
 
     void Awake()
     {
@@ -92,6 +103,9 @@ public class GameManager : MonoBehaviour
 
         capsule_originalRotation = capsule.transform.rotation;
         rope_originalRotation = capsule.transform.rotation;
+
+
+        repairLoopSource.Play();
     }   
 
     private void ShowInstructions() 
@@ -156,11 +170,16 @@ public class GameManager : MonoBehaviour
                 timeReset = false;
                 prepPhase = false;
                 stormPhase = true;
+
+                inStormPhase.TransitionTo(transitionTime);
+                stormMusic.Play();
             }
         }
 
         if (stormPhase)
         {
+
+
             rb_capsule.bodyType = RigidbodyType2D.Dynamic;
             rb_rope.bodyType = RigidbodyType2D.Dynamic;
 
@@ -182,6 +201,7 @@ public class GameManager : MonoBehaviour
                 timeReset = false;
                 recoopPhase = true;
                 stormPhase = false;
+                inRepairPhase.TransitionTo(transitionTime);
             }
 
         }
