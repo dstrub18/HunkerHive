@@ -18151,6 +18151,13 @@ MonoBehaviour:
   beeSelector: {fileID: 1154909513}
   windMachine: {fileID: 1727543644}
   capsule: {fileID: 359308754}
+  rope: {fileID: 1931990073}
+  rb_capsule: {fileID: 0}
+  rb_rope: {fileID: 0}
+  capsule_originalPosition: {x: 0, y: 0, z: 0}
+  rope_originalPosition: {x: 0, y: 0, z: 0}
+  capsule_originalRotation: {x: 0, y: 0, z: 0, w: 0}
+  rope_originalRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &1740507751
 Transform:
   m_ObjectHideFlags: 0

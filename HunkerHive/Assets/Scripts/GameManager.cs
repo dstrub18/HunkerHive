@@ -40,7 +40,19 @@ public class GameManager : MonoBehaviour
 
     [Space]
     [Header("Wind Physics")]
-    [SerializeField] private GameObject capsule;
+    [SerializeField] public GameObject capsule;
+    [SerializeField] private GameObject rope;
+
+    [SerializeField] private Rigidbody2D rb_capsule;
+    [SerializeField] private Rigidbody2D rb_rope;
+
+    [SerializeField] private Vector3  capsule_originalPosition;
+    [SerializeField] private Vector3  rope_originalPosition;
+
+    [SerializeField] private Quaternion capsule_originalRotation;
+    [SerializeField] private Quaternion rope_originalRotation;
+
+
 
     private 
     
@@ -69,11 +81,18 @@ public class GameManager : MonoBehaviour
         {
             furnitureOriginPositions.Add(furniture[index].transform);
         }
-        ForceApplier fa = capsule.GetComponent<ForceApplier>();
-        fa.enabled = false;
 
+        rb_capsule = capsule.GetComponent<Rigidbody2D>();
+        rb_rope = rope.GetComponent<Rigidbody2D>();
+        rb_capsule.bodyType = RigidbodyType2D.Static;
+        rb_rope.bodyType = RigidbodyType2D.Static;
 
-    }
+        capsule_originalPosition = capsule.transform.position;
+        rope_originalPosition = rope.transform.position;
+
+        capsule_originalRotation = capsule.transform.rotation;
+        rope_originalRotation = capsule.transform.rotation;
+    }   
 
     private void ShowInstructions() 
     {
@@ -89,6 +108,11 @@ public class GameManager : MonoBehaviour
         timerObject.SetActive(true);
         StartTimer();
         // Show selection.
+
+        rb_capsule.bodyType = RigidbodyType2D.Static;
+        rb_rope.bodyType = RigidbodyType2D.Static;
+        rb_capsule.velocity = Vector3.zero;
+        rb_rope.velocity = Vector3.zero;
     }
 
     private void StartTimer() 
@@ -102,6 +126,10 @@ public class GameManager : MonoBehaviour
     {
         if (prepPhase) 
         {
+            rb_capsule.bodyType = RigidbodyType2D.Static;
+            rb_rope.bodyType = RigidbodyType2D.Static;
+            rb_capsule.velocity = Vector3.zero;
+            rb_rope.velocity = Vector3.zero;
 
             phaseText.text = "Prep Phase!";
             phaseSign.SetActive(true);
@@ -133,6 +161,10 @@ public class GameManager : MonoBehaviour
 
         if (stormPhase)
         {
+            rb_capsule.bodyType = RigidbodyType2D.Dynamic;
+            rb_rope.bodyType = RigidbodyType2D.Dynamic;
+
+
             phaseText.text = "Storm Phase!";
             windMachine.SetActive(true);
             phaseSign.SetActive(true);
@@ -156,6 +188,18 @@ public class GameManager : MonoBehaviour
 
         if (recoopPhase) 
         {
+            capsule.transform.position = capsule_originalPosition;
+            rope.transform.position = rope_originalPosition;
+
+            capsule.transform.rotation = capsule_originalRotation;
+            rope.transform.rotation = rope_originalRotation;
+
+
+
+            rb_capsule.bodyType = RigidbodyType2D.Static;
+            rb_rope.bodyType = RigidbodyType2D.Static;
+            rb_capsule.velocity = Vector3.zero;
+            rb_rope.velocity = Vector3.zero;
             phaseText.text = "Recoop Phase!";
             phaseSign.SetActive(true);
             if (!timeReset) 
