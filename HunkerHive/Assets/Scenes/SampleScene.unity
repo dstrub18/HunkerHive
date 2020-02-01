@@ -192,7 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b7a8bec440645e7b03abc2066ed950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceInterval: 5
+  forceInterval: 10
+  forceStrength: 500
   rb: {fileID: 0}
   applyLeft: 0
   fm: 0
@@ -1210,6 +1211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceInterval: 0
+  forceStrength: 0
   rb: {fileID: 0}
   applyLeft: 0
   fm: 0
