@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject instructions;
     [SerializeField] private Button startButton;
     [SerializeField] private Button startTimerButton;
+    [SerializeField] private List<GameObject> furniture;
+    private List<Transform> furnitureOriginPositions;
+
+
 
     [Space]
     [Header("Timer")]
@@ -54,6 +58,10 @@ public class GameManager : MonoBehaviour
         gameMenu.SetActive(true);
         startButton.onClick.AddListener(ShowInstructions);
         startTimerButton.onClick.AddListener(StartGame);
+        for(int index = 0; index < furniture.Count; index++)
+        {
+            furnitureOriginPositions.Add(furniture[index].transform);
+        }
     }
 
     private void ShowInstructions() 
@@ -139,6 +147,15 @@ public class GameManager : MonoBehaviour
                 beeSelector.PopulateHive();
                 beeSelector.animator.SetTrigger("Show");
                 phaseSign.SetActive(false);
+                for (int index = 0; index < furniture.Count; index++)
+                {
+                    furniture[index].transform.position = furnitureOriginPositions[index].position;
+                    furniture[index].transform.rotation = furnitureOriginPositions[index].rotation;
+                    if(furniture[index].GetComponent<Furniture>().hp <= 0.0f)
+                    {
+                        furniture[index].SetActive(false);
+                    }
+                }
                 timeReset = false;
                 prepPhase = true;
                 recoopPhase = false;
