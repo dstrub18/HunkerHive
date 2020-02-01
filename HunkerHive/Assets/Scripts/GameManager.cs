@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
     {
         if (prepPhase) 
         {
+
             phaseText.text = "Prep Phase!";
             phaseSign.SetActive(true);
             if (!timeReset) 
@@ -103,6 +104,15 @@ public class GameManager : MonoBehaviour
             }
             time -= Time.deltaTime;
             timeText.text = Mathf.Round(time).ToString();
+            for (int index = 0; index < furniture.Count; index++)
+            {
+                if (furniture[index].GetComponent<FurnitureTrigger>().repaired == true)
+                {
+                    furniture[index].SetActive(true);
+                    furniture[index].GetComponent<Furniture>().hp = furniture[index].GetComponent<Furniture>().maxHp;
+                    furniture[index].GetComponent<FurnitureTrigger>().repaired = false;
+                }
+            }
             if (time <= 0.0f)
             {
                 beeSelector.animator.SetTrigger("Hide");
@@ -160,6 +170,7 @@ public class GameManager : MonoBehaviour
                     {
                         furniture[index].SetActive(false);
                     }
+                    
                 }
                 timeReset = false;
                 prepPhase = true;
