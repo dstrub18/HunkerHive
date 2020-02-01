@@ -38,6 +38,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BeeSelector beeSelector;
     [SerializeField] private GameObject windMachine;
 
+    [Space]
+    [Header("Wind Physics")]
+    [SerializeField] private GameObject capsule;
+
     private 
     
 
@@ -65,6 +69,10 @@ public class GameManager : MonoBehaviour
         {
             furnitureOriginPositions.Add(furniture[index].transform);
         }
+        ForceApplier fa = capsule.GetComponent<ForceApplier>();
+        fa.enabled = false;
+
+
     }
 
     private void ShowInstructions() 
