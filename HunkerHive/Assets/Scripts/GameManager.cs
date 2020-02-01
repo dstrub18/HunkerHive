@@ -32,6 +32,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI phaseText;
     [SerializeField] private bool timeReset;
     [SerializeField] private BeeSelector beeSelector;
+    [SerializeField] private GameObject windMachine;
+
+    private 
     
 
     void Awake()
@@ -105,6 +108,7 @@ public class GameManager : MonoBehaviour
         if (stormPhase)
         {
             phaseText.text = "Storm Phase!";
+            windMachine.SetActive(true);
             phaseSign.SetActive(true);
             if (!timeReset) 
             { 
@@ -115,6 +119,7 @@ public class GameManager : MonoBehaviour
             timeText.text = Mathf.Round(time).ToString();
             if (time <= 0.0f)
             {
+                windMachine.SetActive(false);
                 phaseSign.SetActive(false);
                 timeReset = false;
                 recoopPhase = true;

@@ -9,7 +9,7 @@ public class ForceApplier : MonoBehaviour
 
     [Space (10)]
 
-    [Range(100, 500)]
+    [Range(100, 200)]
     [SerializeField] private float forceStrength;
 
     [SerializeField] private Rigidbody2D rb;
@@ -20,7 +20,7 @@ public class ForceApplier : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        applyLeft = false;
+        applyLeft = true;
         fm = ForceMode2D.Force;
 
         StartCoroutine(applyForce ());
@@ -33,6 +33,7 @@ public class ForceApplier : MonoBehaviour
         if (applyLeft)
         {
             rb.AddForce(-transform.right * forceStrength, fm);
+            Debug.Log("Force applied to the \t \t left");
             applyLeft = false;
             yield return new WaitForSeconds(forceInterval);
         }
@@ -40,6 +41,7 @@ public class ForceApplier : MonoBehaviour
         if (!applyLeft)
         {
             rb.AddForce(transform.right * forceStrength, fm);
+            Debug.Log("Force applied to the \t \t right");
             applyLeft = true;
             yield return new WaitForSeconds(forceInterval);
 
