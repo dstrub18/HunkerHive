@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button startTimerButton;
     [SerializeField] private List<GameObject> furniture;
-    private List<Transform> furnitureOriginPositions;
 
 
 
@@ -39,6 +38,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool timeReset;
     [SerializeField] private BeeSelector beeSelector;
     [SerializeField] private GameObject windMachine;
+    [SerializeField] private Animator queenBar;
+    [SerializeField] private Animator queen;
+
+    [Space]
+    [Header("Furniture")]
+    private List<Transform> furnitureOriginPositions;
+    private List<float> furnitureHP;
+    [SerializeField] private int deathThreshold;
+    [SerializeField] private Slider slider;
+
 
     [Space]
     [Header("Wind Physics")]
@@ -67,7 +76,7 @@ public class GameManager : MonoBehaviour
     [Range (0.5f, 4.0f)]
     public float transitionTime;
 
-
+    
     void Awake()
     {
         //Check if instance already exists
@@ -91,7 +100,9 @@ public class GameManager : MonoBehaviour
         for(int index = 0; index < furniture.Count; index++)
         {
             furnitureOriginPositions.Add(furniture[index].transform);
+            furnitureHP.Add(furniture[index].GetComponent<Furniture>().hp);
         }
+        slider.maxValue = furniture.Count;
 
         rb_capsule = capsule.GetComponent<Rigidbody2D>();
         rb_rope = rope.GetComponent<Rigidbody2D>();
@@ -136,6 +147,23 @@ public class GameManager : MonoBehaviour
         beeSelector.animator.SetTrigger("Show");
     }
 
+    private void CheckIfDead()
+    {
+        var zeroCount = 0;
+        foreach(float hp in furnitureHP)
+        {
+            if(hp <= 0)
+            {
+                zeroCount++;
+            }
+        }
+        if(zeroCount >= deathThreshold)
+        {
+            queen.SetTrigger("queenMad");
+        }
+        slider.value = furniture.Count - zeroCount;
+    }
+
     private void Update()
     {
         if (prepPhase) 
@@ -170,9 +198,9 @@ public class GameManager : MonoBehaviour
                 timeReset = false;
                 prepPhase = false;
                 stormPhase = true;
-
                 inStormPhase.TransitionTo(transitionTime);
                 stormMusic.Play();
+                queenBar.SetTrigger("Show");
             }
         }
 
@@ -196,6 +224,7 @@ public class GameManager : MonoBehaviour
             timeText.text = Mathf.Round(time).ToString();
             if (time <= 0.0f)
             {
+                queenBar.SetTrigger("Hide");
                 windMachine.SetActive(false);
                 phaseSign.SetActive(false);
                 timeReset = false;

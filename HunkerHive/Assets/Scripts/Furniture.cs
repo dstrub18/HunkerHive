@@ -12,6 +12,7 @@ public class Furniture : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Collider2D cl;
     [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private GameManager gameManager;
 
 
     [Space(10)]
@@ -44,6 +45,7 @@ public class Furniture : MonoBehaviour
         if (hp < 0)
         {
             Debug.Log("DIED!!!!");
+
             gameObject.SetActive(false);
         }
     }
