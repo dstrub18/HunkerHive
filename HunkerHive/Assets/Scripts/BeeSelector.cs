@@ -8,15 +8,26 @@ public class BeeSelector : MonoBehaviour
     [SerializeField] private GameObject dragBeePrefab;
     [SerializeField] private FurnitureManager furnitureManager;
     [SerializeField] private GameObject canvas;
+    [SerializeField] public Animator animator;
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         PopulateHive();
     }
 
-    private void PopulateHive() 
+    public void PopulateHive() 
     { 
-        for(var i = 0; i < beeAmount; i++)
+        if(gameObject.transform.childCount > 0)
+        {
+            for(var i = 0; i < transform.childCount; i++)
+            {
+                var child = transform.GetChild(i);
+                Destroy(child.gameObject);
+            }
+        }
+
+        for (var i = 0; i < beeAmount; i++)
         {
             GameObject newBee = Instantiate(dragBeePrefab, gameObject.transform);
             newBee.transform.SetParent(gameObject.transform);

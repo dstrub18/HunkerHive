@@ -14,19 +14,24 @@ public class DragBee : MonoBehaviour
     [SerializeField] public GameObject canvas;
     [SerializeField] private Sprite repairBee;
     [SerializeField] private Sprite nailBee;
+
     private bool followMouse;
     private bool clickable;
     private Image image;
+    private Animator animator;
 
     private void Start()
     {
         image = GetComponent<Image>();
+        animator = GetComponent<Animator>();
         if(beeType == BeeTypes.nail)
         {
+            animator.SetTrigger("nailIdle");
             image.sprite = nailBee;
         }
         else
         {
+            animator.SetTrigger("repairIdle");
             image.sprite = repairBee;
         }
     }
@@ -50,6 +55,14 @@ public class DragBee : MonoBehaviour
         {
             gameObject.transform.SetParent(canvas.transform, false);
             followMouse = true;
+            if(beeType == BeeTypes.nail)
+            {
+                animator.SetTrigger("pickUpNail");
+            }
+            else
+            {
+                animator.SetTrigger("pickUpRepair");
+            }
         }
 
     }
@@ -75,6 +88,16 @@ public class DragBee : MonoBehaviour
         else
         {
             Debug.Log("Snapback");
+            if (beeType == BeeTypes.nail)
+            {
+                animator.SetTrigger("nailIdle");
+                image.sprite = nailBee;
+            }
+            else
+            {
+                animator.SetTrigger("repairIdle");
+                image.sprite = repairBee;
+            }
             gameObject.transform.SetParent(beeSelector.transform, false);
         }
 

@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject phaseSign;
     [SerializeField] private TextMeshProUGUI phaseText;
     [SerializeField] private bool timeReset;
+    [SerializeField] private BeeSelector beeSelector;
     
 
     void Awake()
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
     {
         timerObject.SetActive(true);
         prepPhase = true;
+        beeSelector.animator.SetTrigger("Show");
     }
 
     private void Update()
@@ -92,6 +94,7 @@ public class GameManager : MonoBehaviour
             timeText.text = Mathf.Round(time).ToString();
             if (time <= 0.0f)
             {
+                beeSelector.animator.SetTrigger("Hide");
                 phaseSign.SetActive(false);
                 timeReset = false;
                 prepPhase = false;
@@ -133,6 +136,8 @@ public class GameManager : MonoBehaviour
             timeText.text = Mathf.Round(time).ToString();
             if (time <= 0.0f)
             {
+                beeSelector.PopulateHive();
+                beeSelector.animator.SetTrigger("Show");
                 phaseSign.SetActive(false);
                 timeReset = false;
                 prepPhase = true;
