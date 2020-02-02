@@ -7170,6 +7170,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8017183875727763396, guid: ad1da8b1407c3448daf86620c1697d2d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8017183875727763416, guid: ad1da8b1407c3448daf86620c1697d2d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7268,7 +7273,6 @@ MonoBehaviour:
   gameManager: {fileID: 1740507750}
   nailedState: 0
   hp: 10
-  maxHp: 10
   velocity: 0
 --- !u!1 &538179753
 GameObject:
@@ -7872,17 +7876,17 @@ PrefabInstance:
     - target: {fileID: 8812637457877950314, guid: f760175d0cbc145509c81137da148f2b,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8812637457877950314, guid: f760175d0cbc145509c81137da148f2b,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8812637457877950314, guid: f760175d0cbc145509c81137da148f2b,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8812637458371851400, guid: f760175d0cbc145509c81137da148f2b,
         type: 3}
@@ -8081,7 +8085,6 @@ MonoBehaviour:
   gameManager: {fileID: 1740507750}
   nailedState: 0
   hp: 10
-  maxHp: 1000
   velocity: 0
 --- !u!1 &786373188 stripped
 GameObject:
@@ -8698,8 +8701,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070868683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9250001, y: 0.18014777, z: 1.6056213}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.9250001, y: 0.18014777, z: 4.65}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -18962,6 +18965,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TableOutline (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8017183875727763396, guid: 6de8db80cb19543e2a39817d7488aea6,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8017183875727763398, guid: 6de8db80cb19543e2a39817d7488aea6,
         type: 3}
       propertyPath: m_IsTrigger
@@ -20430,6 +20438,80 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1638586815}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1692016711
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4803704829719614977, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.8503821
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0800045
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.019295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058632, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803704829789058639, guid: f25bb4fb0fc134742b183323a43e1b94,
+        type: 3}
+      propertyPath: m_Name
+      value: SfxSources
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f25bb4fb0fc134742b183323a43e1b94, type: 3}
 --- !u!1 &1727543644
 GameObject:
   m_ObjectHideFlags: 0
@@ -40091,6 +40173,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8017183875727763396, guid: ad1da8b1407c3448daf86620c1697d2d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8017183875727763416, guid: ad1da8b1407c3448daf86620c1697d2d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -40189,7 +40276,6 @@ MonoBehaviour:
   gameManager: {fileID: 1740507750}
   nailedState: 0
   hp: 10
-  maxHp: 10
   velocity: 0
 --- !u!1 &1922264626
 GameObject:

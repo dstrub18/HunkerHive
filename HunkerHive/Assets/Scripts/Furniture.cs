@@ -22,7 +22,7 @@ public class Furniture : MonoBehaviour
     public bool nailedState = false;
     [Space(10)]
     [SerializeField] public float hp = 10;
-    [SerializeField] public float maxHp = 1000;
+    private float maxHp = 1000;
 
     private float nailHealth;
     [SerializeField] private float velocity;
