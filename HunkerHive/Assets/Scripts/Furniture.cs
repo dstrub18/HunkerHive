@@ -54,8 +54,6 @@ public class Furniture : MonoBehaviour
         if (hp < 0)
         {
             Debug.Log("DIED!!!!");
-
-            gameObject.SetActive(false);
         }
         if (nailHealth <= 0 && nailedState == true)
         {

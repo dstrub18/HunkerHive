@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
             {
                 if (furniture[index].GetComponent<FurnitureTrigger>().repaired == true)
                 {
-                    furniture[index].SetActive(true);
+                    furniture[index].GetComponent<SpriteRenderer>().enabled = true;
                     furniture[index].GetComponent<Furniture>().hp = furniture[index].GetComponent<Furniture>().maxHp;
                     furniture[index].GetComponent<FurnitureTrigger>().repaired = false;
                 }
@@ -270,9 +270,9 @@ public class GameManager : MonoBehaviour
                     furniture[index].transform.rotation = furnitureOriginPositions[index].rotation;
                     if(furniture[index].GetComponent<Furniture>().hp <= 0.0f)
                     {
-                        furniture[index].SetActive(false);
+                        furniture[index].GetComponent<SpriteRenderer>().enabled = false;
                     }
-                    
+
                 }
                 timeReset = false;
                 prepPhase = true;
