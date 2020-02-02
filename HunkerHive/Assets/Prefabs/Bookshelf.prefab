@@ -151,5 +151,5 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   nailedState: 0
   hp: 0
-  maxHp: 0
+  maxHp: 2000
   velocity: 0
