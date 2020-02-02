@@ -7,6 +7,12 @@ public class FurnitureOutline : MonoBehaviour
 
     [SerializeField] private Furniture linkedFurnishing;
     [SerializeField] private FurnitureManager furnitureManager;
+    private Rigidbody2D rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     void OnMouseOver()
     {
@@ -19,7 +25,25 @@ public class FurnitureOutline : MonoBehaviour
     {
 
             Debug.Log("Not over furniture");
-            furnitureManager.furnitureTrigger = linkedFurnishing;
+            furnitureManager.furnitureTrigger = null;
 
     }
+
+    public void TurnOFFRB(bool command)
+    {
+        if (command)
+        {
+            Debug.Log("Destory RB");
+            Destroy(rb);
+        }
+        else
+        {
+            Debug.Log("Make RB");
+            rb = gameObject.AddComponent(typeof(Rigidbody2D)) as Rigidbody2D;
+            rb.bodyType = RigidbodyType2D.Static;
+        }
+    }
 }
+
+
+

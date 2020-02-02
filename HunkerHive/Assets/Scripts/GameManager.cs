@@ -100,12 +100,12 @@ public class GameManager : MonoBehaviour
         gameMenu.SetActive(true);
         startButton.onClick.AddListener(ShowInstructions);
         startTimerButton.onClick.AddListener(StartGame);
-        for(int index = 0; index < furniture.Count; index++)
-        {
-            Transform tempTrans = furniture[index].transform;
-            furnitureOriginPositions.Add(tempTrans);
-            furnitureHP.Add(furniture[index].GetComponent<Furniture>().hp);
-        }
+        //for(int index = 0; index < furniture.Count; index++)
+        //{
+        //    //Transform tempTrans = furniture[index].transform;
+        //    //furnitureOriginPositions.Add(tempTrans);
+        //    furnitureHP.Add(furniture[index].GetComponent<Furniture>().hp);
+        //}
         //slider.maxValue = furniture.Count;
 
         rb_capsule = capsule.GetComponent<Rigidbody2D>();
@@ -277,6 +277,7 @@ public class GameManager : MonoBehaviour
                 //}
                 timeReset = false;
                 prepPhase = true;
+                slider.value = slider.maxValue;
                 foreach(FurnitureOutline furnitureOutline in furnitureOutlines)
                 {
                     furnitureOutline.TurnOFFRB(false);
