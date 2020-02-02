@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Button startButton;
     [SerializeField] public Button startTimerButton;
     [SerializeField] public List<GameObject> furniture;
-
+    public GameObject queenBee;
+    public Transform queenBeeOrigin;
 
 
     [Space]
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
     public List<float> furnitureHP;
     [SerializeField] public int deathThreshold;
     [SerializeField] private Slider slider;
+    public List<FurnitureOutline> furnitureOutlines;
 
 
     [Space]
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        queenBeeOrigin = queenBee.transform;
         mask.SetActive(true);
         gameMenu.SetActive(true);
         startButton.onClick.AddListener(ShowInstructions);
@@ -148,21 +151,15 @@ public class GameManager : MonoBehaviour
         beeSelector.animator.SetTrigger("Show");
     }
 
-    private void CheckIfDead()
+    public void CheckIfDead()
     {
-        var zeroCount = 0;
-        foreach(float hp in furnitureHP)
-        {
-            if(hp <= 0)
-            {
-                zeroCount++;
-            }
-        }
-        if(zeroCount >= deathThreshold)
+        Debug.Log("Check if died");
+        slider.value = slider.value - 0.1f;
+        if (slider.value <= 0.8)
         {
             queen.SetTrigger("queenMad");
         }
-        slider.value = furniture.Count - zeroCount;
+
     }
 
     private void Update()
@@ -199,6 +196,10 @@ public class GameManager : MonoBehaviour
                 timeReset = false;
                 prepPhase = false;
                 stormPhase = true;
+                foreach (FurnitureOutline furnitureOutline in furnitureOutlines)
+                {
+                    furnitureOutline.TurnOFFRB(true);
+                }
                 inStormPhase.TransitionTo(transitionTime);
                 stormMusic.Play();
                 queenBar.SetTrigger("Show");
@@ -245,7 +246,7 @@ public class GameManager : MonoBehaviour
             rope.transform.rotation = rope_originalRotation;
 
 
-
+            queenBee.transform.position = queenBeeOrigin.position;
             rb_capsule.bodyType = RigidbodyType2D.Static;
             rb_rope.bodyType = RigidbodyType2D.Static;
             rb_capsule.velocity = Vector3.zero;
@@ -276,6 +277,10 @@ public class GameManager : MonoBehaviour
                 //}
                 timeReset = false;
                 prepPhase = true;
+                foreach(FurnitureOutline furnitureOutline in furnitureOutlines)
+                {
+                    furnitureOutline.TurnOFFRB(false);
+                }
                 recoopPhase = false;
             }
         }
