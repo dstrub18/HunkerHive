@@ -6769,7 +6769,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -18287,10 +18287,12 @@ MonoBehaviour:
   capsule_originalRotation: {x: 0, y: 0, z: 0, w: 0}
   rope_originalRotation: {x: 0, y: 0, z: 0, w: 0}
   repairLoopSource: {fileID: 1796594962}
-  stormMusic: {fileID: 0}
-  inRepairPhase: {fileID: 0}
-  inStormPhase: {fileID: 0}
-  transitionTime: 1.44
+  stormMusic: {fileID: 1064980572}
+  inRepairPhase: {fileID: -2814754401000753769, guid: c04f8bf8813f540cea4f348c5aa6da38,
+    type: 2}
+  inStormPhase: {fileID: 8847309900473355253, guid: c04f8bf8813f540cea4f348c5aa6da38,
+    type: 2}
+  transitionTime: 2
 --- !u!4 &1740507751
 Transform:
   m_ObjectHideFlags: 0
