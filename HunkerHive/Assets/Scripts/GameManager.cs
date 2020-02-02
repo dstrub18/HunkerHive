@@ -10,58 +10,58 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     [Header("Main Menu")]
-    [SerializeField] private GameObject mask;
-    [SerializeField] private GameObject gameMenu;
-    [SerializeField] private GameObject instructions;
-    [SerializeField] private Button startButton;
-    [SerializeField] private Button startTimerButton;
-    [SerializeField] private List<GameObject> furniture;
+    [SerializeField] public GameObject mask;
+    [SerializeField] public GameObject gameMenu;
+    [SerializeField] public GameObject instructions;
+    [SerializeField] public Button startButton;
+    [SerializeField] public Button startTimerButton;
+    [SerializeField] public List<GameObject> furniture;
 
 
 
     [Space]
     [Header("Timer")]
-    [SerializeField] private GameObject timerObject;
-    [SerializeField] private TextMeshProUGUI timeText;
-    [SerializeField] private bool prepPhase;
-    [SerializeField] private bool stormPhase;
-    [SerializeField] private bool recoopPhase;
-    [SerializeField] private float time;
-    [SerializeField] private float prepTime;
-    [SerializeField] private float stormTime;
-    [SerializeField] private float recoopTime;
+    [SerializeField] public GameObject timerObject;
+    [SerializeField] public TextMeshProUGUI timeText;
+    [SerializeField] public bool prepPhase;
+    [SerializeField] public bool stormPhase;
+    [SerializeField] public bool recoopPhase;
+    [SerializeField] public float time;
+    [SerializeField] public float prepTime;
+    [SerializeField] public float stormTime;
+    [SerializeField] public float recoopTime;
 
     [Space]
     [Header("PhaseChanges")]
-    [SerializeField] private GameObject phaseSign;
-    [SerializeField] private TextMeshProUGUI phaseText;
-    [SerializeField] private bool timeReset;
-    [SerializeField] private BeeSelector beeSelector;
-    [SerializeField] private GameObject windMachine;
-    [SerializeField] private Animator queenBar;
-    [SerializeField] private Animator queen;
+    [SerializeField] public TextMeshProUGUI phaseText;
+    [SerializeField] public bool timeReset;
+    [SerializeField] public BeeSelector beeSelector;
+    [SerializeField] public GameObject phaseSign;
+    [SerializeField] public GameObject windMachine;
+    [SerializeField] public Animator queenBar;
+    [SerializeField] public Animator queen;
 
     [Space]
     [Header("Furniture")]
-    private List<Transform> furnitureOriginPositions;
-    private List<float> furnitureHP;
-    [SerializeField] private int deathThreshold;
+    public List<Transform> furnitureOriginPositions;
+    public List<float> furnitureHP;
+    [SerializeField] public int deathThreshold;
     [SerializeField] private Slider slider;
 
 
     [Space]
     [Header("Wind Physics")]
     [SerializeField] public GameObject capsule;
-    [SerializeField] private GameObject rope;
+    [SerializeField] public GameObject rope;
 
-    [SerializeField] private Rigidbody2D rb_capsule;
-    [SerializeField] private Rigidbody2D rb_rope;
+    [SerializeField] public Rigidbody2D rb_capsule;
+    [SerializeField] public Rigidbody2D rb_rope;
 
-    [SerializeField] private Vector3  capsule_originalPosition;
-    [SerializeField] private Vector3  rope_originalPosition;
+    [SerializeField] public Vector3  capsule_originalPosition;
+    [SerializeField] public Vector3  rope_originalPosition;
 
-    [SerializeField] private Quaternion capsule_originalRotation;
-    [SerializeField] private Quaternion rope_originalRotation;
+    [SerializeField] public Quaternion capsule_originalRotation;
+    [SerializeField] public Quaternion rope_originalRotation;
 
 
     [Space]
@@ -99,10 +99,11 @@ public class GameManager : MonoBehaviour
         startTimerButton.onClick.AddListener(StartGame);
         for(int index = 0; index < furniture.Count; index++)
         {
-            furnitureOriginPositions.Add(furniture[index].transform);
+            Transform tempTrans = furniture[index].transform;
+            furnitureOriginPositions.Add(tempTrans);
             furnitureHP.Add(furniture[index].GetComponent<Furniture>().hp);
         }
-        slider.maxValue = furniture.Count;
+        //slider.maxValue = furniture.Count;
 
         rb_capsule = capsule.GetComponent<Rigidbody2D>();
         rb_rope = rope.GetComponent<Rigidbody2D>();

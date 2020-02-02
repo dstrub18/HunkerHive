@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8017183875727763416}
   - component: {fileID: 8017183875727763399}
   - component: {fileID: 8017183875727763398}
-  - component: {fileID: 8017183875727763397}
   - component: {fileID: 8017183875727763396}
   m_Layer: 0
   m_Name: Picture
@@ -81,23 +80,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.1924696, y: 2.7586417}
   m_EdgeRadius: 0
---- !u!114 &8017183875727763397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8017183875727763395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0501390ee3c74347985cbf707cc2fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 8017183875727763399}
-  cl: {fileID: 8017183875727763398}
-  sr: {fileID: 8017183875727763396}
-  hp: 1000
-  velocity: 0
 --- !u!212 &8017183875727763396
 SpriteRenderer:
   m_ObjectHideFlags: 0

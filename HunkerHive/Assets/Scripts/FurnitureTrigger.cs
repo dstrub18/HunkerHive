@@ -5,8 +5,8 @@ using UnityEngine;
 public class FurnitureTrigger : MonoBehaviour
 {
 
-    [SerializeField] private FurnitureManager furnitureManager;
-    [SerializeField] private int health;
+    [SerializeField] public FurnitureManager furnitureManager;
+    [SerializeField] public float nailhealth;
     public bool nailed;
     public bool repaired;
 
