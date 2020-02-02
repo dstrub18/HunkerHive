@@ -12,8 +12,10 @@ public class Furniture : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Collider2D cl;
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] private FurnitureTrigger selfFurnitureTrigger;
-
+    [SerializeField] private GameObject explosion;
+    [SerializeField] private FurnitureOutline furnitureOutline;
+    [SerializeField] private GameObject nailPrefab;
+    [SerializeField] private float nailHealthMax;
     [SerializeField] private GameManager gameManager;
 
     public bool nailedState = false;
@@ -28,12 +30,23 @@ public class Furniture : MonoBehaviour
     void Start()
     {
         hp = maxHp;
+        nailHealth = nailHealthMax;
         rb = GetComponent<Rigidbody2D>();
         Debug.Log("rb assigned");
         cl = GetComponent<Collider2D>();
         sr = GetComponent<SpriteRenderer>();
-        selfFurnitureTrigger = GetComponent<FurnitureTrigger>();
-        nailHealth = selfFurnitureTrigger.nailhealth;
+    }
+
+    void OnMouseOver()
+    {
+        Debug.Log("Over furniture");
+        furnitureManager.furnitureTrigger = this;
+    }
+
+    void OnMouseExit()
+    {
+        Debug.Log("Not over furniture");
+        furnitureManager.furnitureTrigger = null;
     }
 
     // Update is called once per frame
@@ -46,21 +59,45 @@ public class Furniture : MonoBehaviour
         }
         */
 
-        nailedState = selfFurnitureTrigger.nailed;
-        if(nailedState == true)
+        if (nailedState)
         {
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            gameObject.transform.position = furnitureOutline.transform.position;
+            gameObject.transform.rotation = furnitureOutline.transform.rotation;
         }
-        if (hp < 0)
+
+        if (hp <= 0)
         {
             Debug.Log("DIED!!!!");
+            sr.enabled = false;
+            explosion.SetActive(true);
         }
         if (nailHealth <= 0 && nailedState == true)
         {
+            explosion.SetActive(false);
             nailedState = false;
-            rb.constraints = RigidbodyConstraints2D.None;
-            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            nailPrefab.SetActive(false);
         }
+    }
+
+    public void Repair() 
+    {
+
+        Debug.Log("Repaired");
+        hp = maxHp;
+        sr.enabled = true;
+        transform.position = furnitureOutline.transform.position;
+    
+    }
+
+    public void Nail()
+    {
+        Debug.Log("Nailed");
+        nailedState = true;
+        nailPrefab.SetActive(true);
+        gameObject.transform.position = furnitureOutline.transform.position;
+        gameObject.transform.rotation = furnitureOutline.transform.rotation;
+
+
     }
 
 

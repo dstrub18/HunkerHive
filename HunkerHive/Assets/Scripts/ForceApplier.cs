@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ForceApplier : MonoBehaviour
 {
-    //[Range (0, 10)]
+    [Range (0, 10)]
     [SerializeField] private float forceInterval;
 
     [Space (10)]
 
-    //[Range(100, 10000)]
+    [Range(100, 10000)]
     [SerializeField] private float forceStrength;
     [SerializeField] private float impulseLength;
     [SerializeField] private float calmLength;

@@ -183,15 +183,15 @@ public class GameManager : MonoBehaviour
             }
             time -= Time.deltaTime;
             timeText.text = Mathf.Round(time).ToString();
-            for (int index = 0; index < furniture.Count; index++)
-            {
-                if (furniture[index].GetComponent<FurnitureTrigger>().repaired == true)
-                {
-                    furniture[index].GetComponent<SpriteRenderer>().enabled = true;
-                    furniture[index].GetComponent<Furniture>().hp = furniture[index].GetComponent<Furniture>().maxHp;
-                    furniture[index].GetComponent<FurnitureTrigger>().repaired = false;
-                }
-            }
+            //for (int index = 0; index < furniture.Count; index++)
+            //{
+            //    if (furniture[index].GetComponent<FurnitureTrigger>().repaired == true)
+            //    {
+            //        furniture[index].GetComponent<SpriteRenderer>().enabled = true;
+            //        furniture[index].GetComponent<Furniture>().hp = furniture[index].GetComponent<Furniture>().maxHp;
+            //        furniture[index].GetComponent<FurnitureTrigger>().repaired = false;
+            //    }
+            //}
             if (time <= 0.0f)
             {
                 beeSelector.animator.SetTrigger("Hide");
@@ -264,16 +264,16 @@ public class GameManager : MonoBehaviour
                 beeSelector.PopulateHive();
                 beeSelector.animator.SetTrigger("Show");
                 phaseSign.SetActive(false);
-                for (int index = 0; index < furniture.Count; index++)
-                {
-                    furniture[index].transform.position = furnitureOriginPositions[index].position;
-                    furniture[index].transform.rotation = furnitureOriginPositions[index].rotation;
-                    if(furniture[index].GetComponent<Furniture>().hp <= 0.0f)
-                    {
-                        furniture[index].GetComponent<SpriteRenderer>().enabled = false;
-                    }
+                //for (int index = 0; index < furniture.Count; index++)
+                //{
+                //    furniture[index].transform.position = furnitureOriginPositions[index].position;
+                //    furniture[index].transform.rotation = furnitureOriginPositions[index].rotation;
+                //    if(furniture[index].GetComponent<Furniture>().hp <= 0.0f)
+                //    {
+                //        furniture[index].GetComponent<SpriteRenderer>().enabled = false;
+                //    }
 
-                }
+                //}
                 timeReset = false;
                 prepPhase = true;
                 recoopPhase = false;

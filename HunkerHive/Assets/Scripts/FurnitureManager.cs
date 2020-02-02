@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class FurnitureManager : MonoBehaviour
 {
-    public FurnitureTrigger furnitureTrigger = null;
+    public Furniture furnitureTrigger = null;
 
 }
