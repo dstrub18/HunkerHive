@@ -15,13 +15,13 @@ public class Furniture : MonoBehaviour
     [SerializeField] private GameObject explosion;
     [SerializeField] private FurnitureOutline furnitureOutline;
     [SerializeField] private GameObject nailPrefab;
-    [SerializeField] private float nailHealthMax = 500;
+    private float nailHealthMax = 500;
     [SerializeField] private GameManager gameManager;
     private bool dead;
 
     public bool nailedState = false;
     [Space(10)]
-    [SerializeField] public float hp = 10;
+    public float hp;
     private float maxHp = 1000;
 
     private float nailHealth;
