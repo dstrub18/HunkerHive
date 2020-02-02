@@ -20,11 +20,30 @@ public class DragBee : MonoBehaviour
     private Image image;
     private Animator animator;
 
+    [Space]
+    [Header("Audio Sources")]
+    public GameObject humLoop;
+    public GameObject repairDrop;
+    public GameObject nailDrop;
+
+    public AudioSource humLoopSource;
+    public AudioSource repairDropSource;
+    public AudioSource nailDropSource;
+
     private void Start()
     {
         image = GetComponent<Image>();
         animator = GetComponent<Animator>();
-        if(beeType == BeeTypes.nail)
+
+        humLoop = GameObject.Find("SfxSources/humloop");
+        repairDrop = GameObject.Find("SfxSources/repairBeeDrop");
+        nailDrop = GameObject.Find("SfxSources/nailBeeDrop");
+
+        humLoopSource = humLoop.GetComponent<AudioSource>();
+        repairDropSource = repairDrop.GetComponent<AudioSource>();
+        nailDropSource = nailDrop.GetComponent<AudioSource>();
+
+        if (beeType == BeeTypes.nail)
         {
             animator.SetTrigger("nailIdle");
             image.sprite = nailBee;
@@ -63,6 +82,11 @@ public class DragBee : MonoBehaviour
             {
                 animator.SetTrigger("pickUpRepair");
             }
+
+            if (!humLoopSource.isPlaying)
+            {
+                humLoopSource.Play();
+            }
         }
 
     }
@@ -71,17 +95,22 @@ public class DragBee : MonoBehaviour
     {
         Debug.Log("OnPointerUp called.");
         followMouse = false;
+        humLoopSource.Stop();
         if (furnitureManager.furnitureTrigger != null)
         {
             if(beeType == BeeTypes.nail)
             {
                 furnitureManager.furnitureTrigger.Nail();
+                nailDropSource.Play();
 
+                Debug.Log("Nail dropped");
             } 
 
             if(beeType == BeeTypes.repair)
             {
                 furnitureManager.furnitureTrigger.Repair();
+                repairDropSource.Play();
+                Debug.Log("Repair dropped");
             }
 
             animator.SetTrigger("boom");
