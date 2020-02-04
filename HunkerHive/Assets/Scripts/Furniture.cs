@@ -15,14 +15,14 @@ public class Furniture : MonoBehaviour
     [SerializeField] private GameObject explosion;
     [SerializeField] private FurnitureOutline furnitureOutline;
     [SerializeField] private GameObject nailPrefab;
-    private float nailHealthMax = 500;
+    private float nailHealthMax = 1000;
     [SerializeField] private GameManager gameManager;
     private bool dead;
 
     public bool nailedState = false;
     [Space(10)]
     public float hp;
-    private float maxHp = 1000;
+    private float maxHp = 1500;
 
     private float nailHealth;
     [SerializeField] private float velocity;
@@ -68,17 +68,13 @@ public class Furniture : MonoBehaviour
 
         if (hp <= 0 && !dead)
         {
+            nailPrefab.SetActive(false);
             sr.enabled = false;
             explosion.SetActive(true);
             dead = true;
             gameManager.CheckIfDead();
         }
-        if (nailHealth <= 0 && nailedState == true)
-        {
-            explosion.SetActive(false);
-            nailedState = false;
-            nailPrefab.SetActive(false);
-        }
+       
     }
 
     public void Repair() 
@@ -88,6 +84,8 @@ public class Furniture : MonoBehaviour
         hp = maxHp;
         sr.enabled = true;
         dead = false;
+        explosion.SetActive(false);
+        gameManager.currentHealth++;
         transform.position = furnitureOutline.transform.position;
     
     }

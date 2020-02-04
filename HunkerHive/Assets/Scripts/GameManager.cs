@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject mask;
     [SerializeField] public GameObject gameMenu;
     [SerializeField] public GameObject instructions;
+    [SerializeField] public GameObject DeadPopUp;
     [SerializeField] public Button startButton;
     [SerializeField] public Button startTimerButton;
     [SerializeField] public List<GameObject> furniture;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject windMachine;
     [SerializeField] public Animator queenBar;
     [SerializeField] public Animator queen;
+    public int currentHealth; 
 
     [Space]
     [Header("Furniture")]
@@ -106,8 +108,8 @@ public class GameManager : MonoBehaviour
         //    //furnitureOriginPositions.Add(tempTrans);
         //    furnitureHP.Add(furniture[index].GetComponent<Furniture>().hp);
         //}
-        //slider.maxValue = furniture.Count;
-
+        currentHealth = furniture.Count;
+        slider.value = currentHealth;
         rb_capsule = capsule.GetComponent<Rigidbody2D>();
         rb_rope = rope.GetComponent<Rigidbody2D>();
         rb_capsule.bodyType = RigidbodyType2D.Static;
@@ -153,9 +155,10 @@ public class GameManager : MonoBehaviour
 
     public void CheckIfDead()
     {
-        Debug.Log("Check if died");
-        slider.value = slider.value - 0.1f;
-        if (slider.value <= 0.8)
+        currentHealth = currentHealth - 1;
+        Debug.Log(currentHealth);
+        slider.value = currentHealth;
+        if (slider.value <= furniture.Count / 4)
         {
             queen.SetTrigger("queenMad");
         }
@@ -164,126 +167,134 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (prepPhase) 
+        if(currentHealth <= 0)
         {
-            rb_capsule.bodyType = RigidbodyType2D.Static;
-            rb_rope.bodyType = RigidbodyType2D.Static;
-            rb_capsule.velocity = Vector3.zero;
-            rb_rope.velocity = Vector3.zero;
-
-            phaseText.text = "Prep Phase!";
-            phaseSign.SetActive(true);
-            if (!timeReset) 
-            { 
-                time = prepTime;
-                timeReset = true;
-            }
-            time -= Time.deltaTime;
-            timeText.text = Mathf.Round(time).ToString();
-            //for (int index = 0; index < furniture.Count; index++)
-            //{
-            //    if (furniture[index].GetComponent<FurnitureTrigger>().repaired == true)
-            //    {
-            //        furniture[index].GetComponent<SpriteRenderer>().enabled = true;
-            //        furniture[index].GetComponent<Furniture>().hp = furniture[index].GetComponent<Furniture>().maxHp;
-            //        furniture[index].GetComponent<FurnitureTrigger>().repaired = false;
-            //    }
-            //}
-            if (time <= 0.0f)
+            DeadPopUp.SetActive(true);
+        }
+        else
+        {
+            if (prepPhase)
             {
-                beeSelector.animator.SetTrigger("Hide");
-                phaseSign.SetActive(false);
-                timeReset = false;
-                prepPhase = false;
-                stormPhase = true;
-                foreach (FurnitureOutline furnitureOutline in furnitureOutlines)
+                rb_capsule.bodyType = RigidbodyType2D.Static;
+                rb_rope.bodyType = RigidbodyType2D.Static;
+                rb_capsule.velocity = Vector3.zero;
+                rb_rope.velocity = Vector3.zero;
+
+                phaseText.text = "Prep Phase!";
+                phaseSign.SetActive(true);
+                if (!timeReset)
                 {
-                    furnitureOutline.TurnOFFRB(true);
+                    time = prepTime;
+                    timeReset = true;
                 }
-                inStormPhase.TransitionTo(transitionTime);
-                stormMusic.Play();
-                queenBar.SetTrigger("Show");
-            }
-        }
-
-        if (stormPhase)
-        {
-
-
-            rb_capsule.bodyType = RigidbodyType2D.Dynamic;
-            rb_rope.bodyType = RigidbodyType2D.Dynamic;
-
-
-            phaseText.text = "Storm Phase!";
-            windMachine.SetActive(true);
-            phaseSign.SetActive(true);
-            if (!timeReset) 
-            { 
-                time = stormTime;
-                timeReset = true;
-            }
-            time -= Time.deltaTime;
-            timeText.text = Mathf.Round(time).ToString();
-            if (time <= 0.0f)
-            {
-                queenBar.SetTrigger("Hide");
-                windMachine.SetActive(false);
-                phaseSign.SetActive(false);
-                timeReset = false;
-                recoopPhase = true;
-                stormPhase = false;
-                inRepairPhase.TransitionTo(transitionTime);
-            }
-
-        }
-
-        if (recoopPhase) 
-        {
-            capsule.transform.position = capsule_originalPosition;
-            rope.transform.position = rope_originalPosition;
-
-            capsule.transform.rotation = capsule_originalRotation;
-            rope.transform.rotation = rope_originalRotation;
-
-
-            queenBee.transform.position = queenBeeOrigin.position;
-            rb_capsule.bodyType = RigidbodyType2D.Static;
-            rb_rope.bodyType = RigidbodyType2D.Static;
-            rb_capsule.velocity = Vector3.zero;
-            rb_rope.velocity = Vector3.zero;
-            phaseText.text = "Recoop Phase!";
-            phaseSign.SetActive(true);
-            if (!timeReset) 
-            { 
-                time = recoopTime;
-                timeReset = true;
-            }
-            time -= Time.deltaTime;
-            timeText.text = Mathf.Round(time).ToString();
-            if (time <= 0.0f)
-            {
-                beeSelector.PopulateHive();
-                beeSelector.animator.SetTrigger("Show");
-                phaseSign.SetActive(false);
+                time -= Time.deltaTime;
+                timeText.text = Mathf.Round(time).ToString();
                 //for (int index = 0; index < furniture.Count; index++)
                 //{
-                //    furniture[index].transform.position = furnitureOriginPositions[index].position;
-                //    furniture[index].transform.rotation = furnitureOriginPositions[index].rotation;
-                //    if(furniture[index].GetComponent<Furniture>().hp <= 0.0f)
+                //    if (furniture[index].GetComponent<FurnitureTrigger>().repaired == true)
                 //    {
-                //        furniture[index].GetComponent<SpriteRenderer>().enabled = false;
+                //        furniture[index].GetComponent<SpriteRenderer>().enabled = true;
+                //        furniture[index].GetComponent<Furniture>().hp = furniture[index].GetComponent<Furniture>().maxHp;
+                //        furniture[index].GetComponent<FurnitureTrigger>().repaired = false;
                 //    }
-
                 //}
-                timeReset = false;
-                prepPhase = true;
-                slider.value = slider.maxValue;
-                foreach(FurnitureOutline furnitureOutline in furnitureOutlines)
+                if (time <= 0.0f)
                 {
-                    furnitureOutline.TurnOFFRB(false);
+                    beeSelector.animator.SetTrigger("Hide");
+                    phaseSign.SetActive(false);
+                    timeReset = false;
+                    prepPhase = false;
+                    stormPhase = true;
+                    foreach (FurnitureOutline furnitureOutline in furnitureOutlines)
+                    {
+                        furnitureOutline.TurnOFFRB(true);
+                    }
+                    inStormPhase.TransitionTo(transitionTime);
+                    stormMusic.Play();
+                    queenBar.SetTrigger("Show");
                 }
-                recoopPhase = false;
+            }
+
+            if (stormPhase)
+            {
+
+
+                rb_capsule.bodyType = RigidbodyType2D.Dynamic;
+                rb_rope.bodyType = RigidbodyType2D.Dynamic;
+
+
+                phaseText.text = "Storm Phase!";
+                windMachine.SetActive(true);
+                phaseSign.SetActive(true);
+                if (!timeReset)
+                {
+                    time = stormTime;
+                    timeReset = true;
+                }
+                time -= Time.deltaTime;
+                timeText.text = Mathf.Round(time).ToString();
+                if (time <= 0.0f)
+                {
+                    queenBar.SetTrigger("Hide");
+                    windMachine.SetActive(false);
+                    phaseSign.SetActive(false);
+                    timeReset = false;
+                    recoopPhase = true;
+                    stormPhase = false;
+                    inRepairPhase.TransitionTo(transitionTime);
+                }
+
+            }
+
+            if (recoopPhase)
+            {
+                capsule.transform.position = capsule_originalPosition;
+                rope.transform.position = rope_originalPosition;
+
+                capsule.transform.rotation = capsule_originalRotation;
+                rope.transform.rotation = rope_originalRotation;
+
+
+                queenBee.transform.position = queenBeeOrigin.position;
+                rb_capsule.bodyType = RigidbodyType2D.Static;
+                rb_rope.bodyType = RigidbodyType2D.Static;
+                rb_capsule.velocity = Vector3.zero;
+                rb_rope.velocity = Vector3.zero;
+                phaseText.text = "Recoop Phase!";
+                phaseSign.SetActive(true);
+                if (!timeReset)
+                {
+                    time = recoopTime;
+                    timeReset = true;
+                }
+                time -= Time.deltaTime;
+                timeText.text = Mathf.Round(time).ToString();
+                if (time <= 0.0f)
+                {
+                    beeSelector.PopulateHive();
+                    beeSelector.animator.SetTrigger("Show");
+                    phaseSign.SetActive(false);
+                    queenBar.SetTrigger("returnToNormal");
+                    //for (int index = 0; index < furniture.Count; index++)
+                    //{
+                    //    furniture[index].transform.position = furnitureOriginPositions[index].position;
+                    //    furniture[index].transform.rotation = furnitureOriginPositions[index].rotation;
+                    //    if(furniture[index].GetComponent<Furniture>().hp <= 0.0f)
+                    //    {
+                    //        furniture[index].GetComponent<SpriteRenderer>().enabled = false;
+                    //    }
+
+                    //}
+                    timeReset = false;
+                    prepPhase = true;
+                    foreach (FurnitureOutline furnitureOutline in furnitureOutlines)
+                    {
+                        furnitureOutline.TurnOFFRB(false);
+                    }
+                    recoopPhase = false;
+                }
             }
         }
+
     }
 }
